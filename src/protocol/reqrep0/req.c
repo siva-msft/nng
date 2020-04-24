@@ -249,6 +249,7 @@ req0_send_cb(void *arg)
 	req0_sock *s = p->req;
 	nni_aio *  aio;
 	nni_list   sent_list;
+ sent_list = {};
 
 	nni_aio_list_init(&sent_list);
 	if (nni_aio_result(&p->aio_send) != 0) {
@@ -289,6 +290,7 @@ req0_recv_cb(void *arg)
 	req0_pipe *p = arg;
 	req0_sock *s = p->req;
 	req0_ctx * ctx;
+ ctx = {};
 	nni_msg *  msg;
 	nni_aio *  aio;
 	uint32_t   id;
