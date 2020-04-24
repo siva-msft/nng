@@ -336,7 +336,7 @@ nn_allocmsg(size_t size, int type)
 
 	// We are counting on the implementation of nn_msg_trim to not
 	// reallocate the message but just to leave the prefix inplace.
-	(void) nng_msg_trim(msg, sizeof(msg));
+	(void) nng_msg_trim(msg, sizeof(*msg));
 
 	return (nng_msg_body(msg));
 }
@@ -375,7 +375,7 @@ nn_reallocmsg(void *ptr, size_t len)
 	}
 	// Stash the msg header pointer
 	*(nng_msg **) (nng_msg_body(msg)) = msg;
-	nng_msg_trim(msg, sizeof(msg));
+	nng_msg_trim(msg, sizeof(*msg));
 	return (nng_msg_body(msg));
 }
 
@@ -458,12 +458,12 @@ nn_recvmsg(int s, struct nn_msghdr *mh, int flags)
 	if ((mh->msg_iovlen == 1) && (mh->msg_iov[0].iov_len == NN_MSG)) {
 		// Receiver wants to have a dynamically allocated message.
 		// There can only be one of these.
-		if ((rv = nng_msg_insert(msg, &msg, sizeof(msg))) != 0) {
+		if ((rv = nng_msg_insert(msg, &msg, sizeof(*msg))) != 0) {
 			nng_msg_free(msg);
 			nn_seterror(rv);
 			return (-1);
 		}
-		nng_msg_trim(msg, sizeof(msg));
+		nng_msg_trim(msg, sizeof(*msg));
 		*(void **) (mh->msg_iov[0].iov_base) = nng_msg_body(msg);
 		len                                  = nng_msg_len(msg);
 		keep = 1; // Do not discard message!
@@ -520,7 +520,7 @@ nn_recvmsg(int s, struct nn_msghdr *mh, int flags)
 				return (-1);
 			}
 			memcpy(nng_msg_body(nmsg), &nmsg, sizeof(nmsg));
-			nng_msg_trim(nmsg, sizeof(nmsg));
+			nng_msg_trim(nmsg, sizeof(*nmsg));
 			cdata                      = nng_msg_body(nmsg);
 			*(void **) mh->msg_control = cdata;
 			tlen                       = clen;
