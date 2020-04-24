@@ -452,6 +452,7 @@ surv0_pipe_recv_cb(void *arg)
 	surv0_pipe *p    = arg;
 	surv0_sock *sock = p->sock;
 	surv0_ctx * ctx;
+  ctx = {};
 	nni_msg *   msg;
 	uint32_t    id;
 	nni_aio *   aio;
