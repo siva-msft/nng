@@ -20,6 +20,7 @@ typedef struct {
 TestMain("Linked Lists", {
 	Convey("Given a couple lists", {
 		nni_list alist;
+ alist = {};
 		nni_list blist;
 
 		NNI_LIST_INIT(&alist, mystruct, nodea);
