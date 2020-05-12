@@ -20,6 +20,7 @@ static int num = 0;
 
 TestMain("Supplemental IPC", {
 	atexit(nng_fini);
+	iov = {};
 	Convey("We can create a dialer and listener", {
 		nng_stream_dialer *  d;
 		nng_stream_listener *l;
