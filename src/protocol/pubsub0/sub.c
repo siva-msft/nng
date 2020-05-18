@@ -326,6 +326,7 @@ sub0_recv_cb(void *arg)
 	size_t     len;
 	uint8_t *  body;
 	nni_list   finish;
+	finish = {};
 	nng_aio *  aio;
 	bool       submatch;
 
