@@ -142,6 +142,7 @@ resp0_ctx_send(void *arg, nni_aio *aio)
 	resp0_ctx * ctx = arg;
 	resp0_sock *s   = ctx->sock;
 	resp0_pipe *p;
+	p = {};
 	nni_msg *   msg;
 	size_t      len;
 	uint32_t    pid;
